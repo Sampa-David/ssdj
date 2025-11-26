@@ -1,0 +1,22 @@
+{
+  "name": "ssdj-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio personnel avec Craftivo Bootstrap Template",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Building static site...'",
+    "start": "npx http-server . -p 3000",
+    "dev": "npx http-server . -p 3000 -c-1"
+  },
+  "keywords": [
+    "portfolio",
+    "craftivo",
+    "bootstrap"
+  ],
+  "author": "Sampa-David",
+  "license": "MIT",
+  "dependencies": {
+    "@vercel/analytics": "^1.0.0"
+  },
+  "devDependencies": {}
+}

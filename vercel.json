@@ -1,0 +1,13 @@
+{
+  "env": [
+    {
+      "key": "VERCEL_ANALYTICS_ID",
+      "value": "@vercel/analytics"
+    }
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": ".",
+  "framework": "html",
+  "redirects": [],
+  "rewrites": []
+}
