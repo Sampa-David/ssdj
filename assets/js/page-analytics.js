@@ -151,20 +151,39 @@ class PageAnalytics {
       totalPages: this.pageData.pages.length
     };
 
+    console.log('[Analytics Payload]', analyticsPayload);
+
     // Envoyer via beacon pour fiabilité
     if (navigator.sendBeacon) {
-      navigator.sendBeacon('/api/analytics', JSON.stringify(analyticsPayload));
+      try {
+        navigator.sendBeacon('/api/analytics', JSON.stringify(analyticsPayload));
+        console.log('[Analytics Sent via Beacon]');
+      } catch (err) {
+        console.error('[Beacon Error]', err);
+        this.fallbackFetch(analyticsPayload);
+      }
     } else {
-      // Fallback fetch
-      fetch('/api/analytics', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(analyticsPayload),
-        keepalive: true
-      }).catch(err => console.error('Analytics send failed:', err));
+      this.fallbackFetch(analyticsPayload);
     }
+  }
+
+  fallbackFetch(payload) {
+    // Fallback fetch avec keepalive
+    fetch('/api/analytics', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload),
+      keepalive: true
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log('[Analytics Response]', data);
+    })
+    .catch(err => {
+      console.error('[Analytics Fetch Error]', err);
+    });
   }
 
   initializeTracking() {
